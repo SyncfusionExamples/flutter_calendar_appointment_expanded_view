@@ -8,22 +8,24 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: _MyHomePage(),
+      home: ExpandedView(),
     );
   }
 }
 
-class _MyHomePage extends StatefulWidget {
+class ExpandedView extends StatefulWidget {
+  const ExpandedView({super.key});
+
   @override
-  State<StatefulWidget> createState() => CalendarExample();
+  State<StatefulWidget> createState() => ExpandedViewState();
 }
 
-class CalendarExample extends State<_MyHomePage> {
+class ExpandedViewState extends State<ExpandedView> {
   final List<Color> _colorCollection = <Color>[];
   final ScrollController _scrollController = ScrollController();
-  DateTime? currentDate;
+  DateTime? _currentDate;
 
   @override
   void initState() {
@@ -55,11 +57,11 @@ class CalendarExample extends State<_MyHomePage> {
                         isAllDay: false)),
               ),
               onViewChanged: (viewChangedDetails) {
-                if (currentDate != null &&
-                    currentDate != viewChangedDetails.visibleDates[0]) {
+                if (_currentDate != null &&
+                    _currentDate != viewChangedDetails.visibleDates[0]) {
                   _scrollController.jumpTo(0);
                 } else {
-                  currentDate = viewChangedDetails.visibleDates[0];
+                  _currentDate = viewChangedDetails.visibleDates[0];
                 }
               },
             ),
